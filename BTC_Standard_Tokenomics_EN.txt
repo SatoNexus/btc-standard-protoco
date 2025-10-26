@@ -1,0 +1,56 @@
+# 🪙 BTC Standard Protocol – Tokenomics Overview
+
+## 1. Overview
+The BTC Standard Protocol operates under a **dual-token monetary model** designed to merge Bitcoin’s scarcity with global usability.  
+Each token has a distinct role:
+
+| Token | Name | Function | Collateral |
+|-------|------|-----------|-------------|
+| 💰 **bUSD (BitAnchor)** | Stablecoin | Represents 1 USD in BTC value | 100% BTC |
+| ⚡ **sBTC (SatStandard)** | Unit of account token | Expresses prices directly in satoshis | Algorithmic parity |
+
+---
+
+## 2. Token 1 — bUSD (BitAnchor)
+- **Purpose:** Operational stability for everyday transactions.  
+- **Peg Mechanism:** 1 bUSD = BTC value of 1 USD (based on real-time BTC/USD oracle).  
+- **Collateralization:** Fully backed by Bitcoin held in decentralized reserves.  
+- **Mint/Burn Process:** Users deposit BTC → mint bUSD ; redeem bUSD → receive BTC.  
+- **Use Cases:**
+  - Payments and remittances  
+  - Hedging against BTC volatility  
+  - Gateway for DeFi operations (DEX liquidity, lending, yield protocols)
+
+---
+
+## 3. Token 2 — sBTC (SatStandard)
+- **Purpose:** Serve as a **Bitcoinized unit of account**.  
+- **Value Reference:** 1 sBTC = 1 satoshi (1 / 100,000,000 BTC).  
+- **Utility:**
+  - Used for **pricing goods, assets, and contracts** directly in satoshis.  
+  - Acts as a **base unit** for on-chain accounting and smart contracts.  
+- **Supply Model:** Elastic and non-speculative — minted for measurement, not profit.  
+- **Goal:** Transition from fiat valuation to a pure BTC-denominated economy.
+
+---
+
+## 4. Interaction Between bUSD and sBTC
+| Mechanism | Description |
+|------------|-------------|
+| **Exchange Parity** | Smart contracts allow 1 bUSD to always equal BTC value of 1 USD in sBTC units. |
+| **Oracle Feeds** | BTC/USD price feeds update the conversion ratio every block epoch. |
+| **Stability Mechanism** | Arbitrage and mint/burn actions keep the peg consistent without central authority. |
+
+---
+
+## 5. Governance & Foundation Role
+- **MonetaBTC Foundation** maintains oracle transparency, protocol audits, and version control.  
+- Community voting governs parameter adjustments (e.g., collateral ratio, oracle sources).  
+- Treasury funds are held in multi-sig Bitcoin vaults.
+
+---
+
+## 6. Long-Term Vision
+The **BTC Standard** aims to make **satoshis the global measure of value**,  
+while bUSD ensures smooth transition and stability during adoption.  
+Together, they embody *The Satoshi Standard — a decentralized monetary future.*
