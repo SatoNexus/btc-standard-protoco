@@ -1,3 +1,6 @@
+<p align="center">
+  <img src="assets/SatoNexus_Profile_Logo.png" width="140">
+</p>
 # btc-standard-protoco
 Open-source protocol establishing the Bitcoin-based monetary standard (The Satoshi Standard). A decentralized framework for BTC-collateralized stablecoins and unit pricing in satoshis.
 # 🪙 BTC Standard Protocol — The Satoshi Standard
