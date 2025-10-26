@@ -1,56 +1,76 @@
 <p align="center">
-  <img src="assets/SatoNexus_Profile_Logo.png" width="140">
+  <img src="assets/logo/btc_standard_logo.png" width="140" alt="BTC Standard Logo">
 </p>
-# btc-standard-protocol
-Open-source protocol establishing the Bitcoin-based monetary standard (The Satoshi Standard). A decentralized framework for BTC-collateralized stablecoins and unit pricing in satoshis.
-# 🪙 BTC Standard Protocol — The Satoshi Standard
 
-> *Redefining stability through Bitcoin.*  
-> A decentralized framework for BTC-collateralized stablecoins and satoshi-based pricing.  
+<h1 align="center">₿ BTC Standard Protocol</h1>
+<h3 align="center">Redefining Global Value Under the Satoshi Standard</h3>
 
 ---
 
-## 🌐 Overview
-The *BTC Standard Protocol* establishes a new monetary model where Bitcoin becomes the unit of account, replacing fiat-based valuation systems.
+## 🌍 Overview
+The *BTC Standard Protocol* introduces a new monetary framework built entirely upon Bitcoin.  
+Its mission is to transition the world from fiat-based valuation systems to a *Bitcoin-denominated economy*,  
+where every price, transaction, and asset can be expressed in *satoshis* — the true atomic unit of sound money.
 
-This protocol introduces a dual-token ecosystem:
+---
 
-| Token | Name | Function |
+## 🧱 System Architecture
+
+| Layer | Name | Function |
 |-------|------|-----------|
-| 💰 *bUSD (BitAnchor)* | Stablecoin pegged to the USD equivalent in BTC (via satoshi parity). |
-| ⚡ *sBTC (SatStandard)* | A Bitcoinized unit of account expressing value directly in satoshis. |
+| 🌐 *Foundational Layer* | *BTC Standard Protocol* | Defines the Bitcoin-based monetary reference system. |
+| 💰 *Stablecoin* | *BitAnchor (bUSD)* | Represents the value of 1 USD in BTC, ensuring short-term stability. |
+| ⚡ *Bitcoinized Unit* | *SatStandard (sBTC)* | Expresses all prices directly in satoshis. |
+| 🏛 *Governance Layer* | *MonetaBTC Foundation* | Oversees audits, governance, and protocol evolution. |
 
 ---
 
-## 🧱 Layered Architecture
-| Layer | Component | Description |
-|-------|------------|-------------|
-| 🌐 *Foundation Layer* | *BTC Standard Protocol* | Defines the monetary standard and core smart contracts. |
-| 💰 *Stablecoin Layer* | *BitAnchor (bUSD)* | Enables BTC-backed stability without fiat dependency. |
-| ⚡ *Unit Layer* | *SatStandard (sBTC)* | Allows goods and services to be priced directly in Bitcoin units. |
-| 🏛 *Governance Layer* | *MonetaBTC Foundation* | Responsible for transparency, audits, and upgrades. |
+## 💡 Key Concepts
+- *bUSD (BitAnchor):* Bitcoin-backed stablecoin pegged to the USD value.  
+- *sBTC (SatStandard):* Non-speculative accounting token representing 1 satoshi.  
+- *Oracle Bridge:* Real-time BTC/USD feed maintaining consistent peg stability.  
+- *Full Transparency:* All collateral and transactions verifiable on-chain.  
 
 ---
 
-## 🧭 Mission
-To establish a decentralized, Bitcoin-based monetary framework that replaces fiat reliance and restores value integrity through the *Satoshi Standard*.
+## 🏁 Mission
+To establish *Bitcoin as the universal unit of account*,  
+bridging the transition from fiat dependency to a decentralized financial standard.
+
+> “One Bitcoin Standard for a decentralized world.”  
+> — MonetaBTC Foundation, 2025
 
 ---
 
-## 📂 Project Structure
-## 📄 Documents
-- [Foundation Vision](foundation/BTC_Standard_Foundation_Vision.txt)
-- [Protocol Overview](docs/overview.txt)
-- [Token Structure](tokenomics/token_structure.txt)
+## 📂 Repository Structure
+BTC-Standard-Protocol/
+│
+├── foundation/
+│   └── BTC_Standard_Foundation_Manifesto_EN.zip
+│
+├── tokenomics/
+│   └── BTC_Standard_Tokenomics_EN.zip
+│
+├── docs/
+│   └── README.md
+│
+└── assets/
+└── logo/btc_standard_logo.png
+---
+
+## 🧩 Future Development
+- [ ] Whitepaper (Phase 1 Draft)
+- [ ] Oracle & Pegging Smart Contract
+- [ ] Governance DAO
+- [ ] Public Testnet Launch (bUSD, sBTC)
 
 ---
 
-## 🧑‍💻 Founded by
-*SatoNexus* — Architect of the Satoshi Standard  
-> “Bitcoin is not the end — it’s the foundation.”  
+## ⚙ License
+This project is released under the *MIT License* — open and permissionless.
 
 ---
 
-## 🌍 Join the movement
-Follow updates and contribute to the open-source revolution.  
-*#BitcoinStandard #OpenFinance #Decentralization*
+## 🌐 Connect
+*Project Lead:* SatoNexus  
+*Foundation:* MonetaBTC Foundation
