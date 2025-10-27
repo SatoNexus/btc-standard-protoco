@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/logo/btc_standard_logo.png" width="140" alt="BTC Standard Logo">
+  <img src="assets/logo/Imagem do WhatsApp de 2025-10-26 à(s) 07.14.51_1636e7d1.jpg" width="140" alt="BTC Standard Logo">
 </p>
 
 <h1 align="center">₿ BTC Standard Protocol</h1>
