@@ -74,3 +74,10 @@ This project is released under the *MIT License* — open and permissionless.
 ## 🌐 Connect
 *Project Lead:* SatoNexus  
 *Foundation:* MonetaBTC Foundation
+
+### 📜 License
+
+This project is licensed under the [MIT License](./LICENSE) —  
+you are free to use, modify, and distribute this software as long as proper credit is given.
+
+© 2025 SatoNexus — BTC Standard Protocol
