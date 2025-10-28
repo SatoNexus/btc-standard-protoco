@@ -66,11 +66,6 @@ BTC-Standard-Protocol/
 
 ---
 
-## ⚙ License
-This project is released under the *MIT License* — open and permissionless.
-
----
-
 ## 🌐 Connect
 *Project Lead:* SatoNexus  
 *Foundation:* MonetaBTC Foundation
