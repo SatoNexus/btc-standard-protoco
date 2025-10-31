@@ -1,0 +1,28 @@
+# Protocol Design — Overview
+*BTC Standard Protocol — Executive Summary*
+
+## Purpose
+The Protocol Design folder describes how the BTC Standard Protocol enables a Bitcoin-native economy using two complementary tokens:
+- *bUSD (BitAnchor)* — a Bitcoin-backed stablecoin pegged to 1 USD expressed in satoshis.
+- *sBTC (SatStandard)* — the Bitcoin-denominated unit of account (1 sBTC = 1 satoshi).
+
+## Key Components
+- *VaultManager* — accepts BTC deposits (wrapped or custodial), mints/burns bUSD, tracks collateral positions.
+- *Oracle System* — multi-source BTC/USD price feeds (Chainlink + fallback) and TWAP for stability.
+- *AMM / Swap Engine* — liquidity pools and automated conversion between bUSD and sBTC.
+- *Proof-of-Reserves* — public snapshots and Merkle proofs showing collateral backing.
+- *Governance (MonetaBTC Foundation)* — manages oracle selection, upgrades, audits and treasury.
+
+## High-level Flows
+1. *Minting bUSD:* User deposits BTC → VaultManager queries Oracle → mints bUSD per BTC/USD price.
+2. *Converting bUSD ↔ sBTC:* AMM facilitates conversions; useful for pricing, accounting and micropayments.
+3. *Redeeming:* User burns bUSD → receives equivalent BTC (subject to fees, limits and KYC if applicable).
+4. *Liquidations:* Under-collateralized vaults can be liquidated by protocol rules; liquidators receive discounted collateral.
+
+## Safety & Assumptions
+- Oracles are robust (multi-source); emergency pause exists for severe price anomalies.
+- Collateral policies (over-collateralization, fees, liquidation incentives) are configurable via governance.
+- The system assumes access to reliable wrapped BTC or custodied BTC under transparent proof-of-reserves.
+
+## Outcome
+The architecture enables merchants and users to operate in a Bitcoin-denominated economy while preserving price stability through BTC-backed bUSD — bridging Bitcoin’s decentralization with real-world usability.
