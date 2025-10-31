@@ -1,0 +1,165 @@
+# Protocol Design — Technical Specification
+*BTC Standard Protocol — Technical Specification*
+
+---
+
+## 0. Purpose & Scope
+This document is the engineering specification for the protocol-level mechanics of bUSD and sBTC. It includes precise formulas, variable definitions, example calculations, security considerations, oracle requirements, liquidation rules and developer notes.
+
+---
+
+## 1. Notation and Constants
+- BTC_price_usd : BTC price in USD (e.g., 60,000).  
+- SATS_PER_BTC = 100000000 (one BTC = 100,000,000 sats).  
+- sats_per_usd = SATS_PER_BTC / BTC_price_usd (sats that equal 1 USD).  
+- bUSD_supply : total outstanding bUSD.  
+- collateral_btc : BTC held in a vault.  
+- collateral_value_usd = collateral_btc * BTC_price_usd.  
+- min_collateral_ratio : e.g., 1.50 (150%). Configurable by governance.  
+- mint_fee, burn_fee, swap_fee : e.g., 0.1% (configurable).  
+- liquidation_bonus : reward for liquidators, e.g., 5%.
+
+All monetary arithmetic must be integer-based (use sats or smallest ERC20 units) to avoid float precision errors.
+
+---
+
+## 2. Core formulas
+
+### 2.1 sats per USD
+sats_per_usd = SATS_PER_BTC / BTC_price_usd
+### 2.2 collateral value in USD
+collateral_value_usd = collateral_btc * BTC_price_usd
+### 2.3 maximum mintable bUSD for a vault
+max_bUSD_mint = floor(collateral_value_usd / min_collateral_ratio)
+(Use floor to avoid overissuance; fees reduce mintable amount.)
+
+### 2.4 convert bUSD to sats (backing amount)
+bUSD_in_sats = bUSD_amount * sats_per_usd
+### 2.5 convert bUSD to sBTC (if 1 sBTC = 1 satoshi)
+sBTC_amount = bUSD_amount * sats_per_usd
+### 2.6 redeem bUSD to BTC
+BTC_to_redeem = bUSD_amount / BTC_price_usd
+---
+
+## 3. Vault flows (detailed)
+
+### Minting (user deposits BTC)
+1. User sends ΔBTC to VaultManager.  
+2. VaultManager queries Oracle → BTC_price_usd.  
+3. Compute deposit_usd = ΔBTC * BTC_price_usd.  
+4. Compute max_mint = floor(deposit_usd / min_collateral_ratio).  
+5. Apply mint_fee: net_mint = max_mint * (1 - mint_fee).  
+6. Mint net_mint bUSD to user; record vault position: collateral_btc += ΔBTC, debt_bUSD += net_mint.
+
+Notes:
+- If vault-based, user-specific debt tracking required.
+- If pooled collateral model, track total collateral and pro-rata liabilities.
+
+### Redemption (user burns bUSD)
+1. User sends bUSD_amount to burn contract.  
+2. Calculate BTC_return = bUSD_amount / BTC_price_usd (adjust for fees).  
+3. If using wrapped BTC, transfer corresponding WBTC; if custodial, schedule BTC withdrawal with multi-sig.
+
+Security:
+- Redemption must validate oracle freshness and implement slippage limits.
+- Large redemptions may require queuing or auctioning to avoid liquidity drains.
+
+---
+
+## 4. Oracle design
+
+- *Primary source:* Chainlink BTC/USD aggregated feed.  
+- *Fallback:* Exchange aggregator (e.g., Coinbase/Bitstamp median).  
+- *TWAP (optional):* configure a TWAP window (e.g., 10–60 minutes) to mitigate flash manipulation.  
+- *Checks:*
+  - Reject updates older than X minutes.
+  - Cap per-epoch price movement (circuit breaker).
+  - On oracle outage, pause mint/redemptions (configurable emergency mode).
+
+---
+
+## 5. Liquidation mechanics
+
+### Health factor
+health = (collateral_value_usd) / debt_bUSD
+- If health < min_collateral_ratio, vault is liquidatable.
+
+### Liquidation process (simplified)
+1. Liquidator burns x bUSD to reduce the bad debt.  
+2. Liquidator receives discounted fraction of collateral (discount = liquidation_bonus).  
+3. Post-liquidation, update vault collateral and debt.
+
+Implementation notes:
+- Prefer auction-based liquidation for large positions to avoid market impact.
+- Set minimum liquidation step sizes to avoid micro-liquidations.
+
+---
+
+## 6. AMM and conversion considerations
+
+- Provide bUSD <-> sBTC pools with low-slippage algorithm (Curve-like stable swap if both behave stable relative; otherwise a constant-product AMM).
+- Use on-chain price oracles to seed pool initial rates.
+- Consider routing via bUSD <-> WBTC for deeper liquidity.
+
+Fees:
+- swap_fee applied to AMM trades; part of fees routes to treasury, part to LP rewards.
+
+---
+
+## 7. Fees, treasury and incentives
+
+- mint_fee — small fee to discourage arbitrage exploitation and fund treasury.  
+- burn_fee — fee on redemption.  
+- swap_fee — fee for AMM swaps.  
+- Treasury allocation: percentage of fees allocated to fund audits, development and market-making incentives.
+
+---
+
+## 8. Proof of Reserves & transparency
+
+- Publish Merkle snapshots or on-chain registries of custodial addresses.  
+- Provide public explorer link and periodic auditor attestations.
+- Implement proofOfReserve() view functions for automated verification.
+
+---
+
+## 9. Security and attack surface (concise)
+- Oracle manipulation → mitigated by multi-source + TWAP + circuit breakers.  
+- Bridge/wrapped BTC risk → use audited bridges, multi-provider strategy.  
+- Liquidation cascades during flash crashes → auction design + time-buffer.  
+- Smart-contract bugs → static analysis, multiple audits, bug-bounty, pausability.
+
+---
+
+## 10. Example numeric scenario (checked math)
+Given:
+- BTC_price_usd = 60,000  
+- SATS_PER_BTC = 100,000,000  
+- min_collateral_ratio = 1.50  
+- User deposits 0.05 BTC
+
+Calculations:
+1. collateral_value_usd = 0.05 * 60,000 = 3,000 USD  
+2. max_bUSD_mint = floor(3,000 / 1.5) = 2,000 bUSD  
+3. sats_per_usd = 100,000,000 / 60,000 ≈ 1,666.6667 sats  
+4. bUSD backing in sats = 2,000 * 1,666.6667 ≈ 3,333,333 sats  
+5. Vault holds 0.05 BTC (5,000,000 sats); after fees and protocol reserves the backing aligns with issued bUSD.
+
+---
+
+## 11. Developer notes & recommended primitives
+- Use integer math; store sats and token smallest units.  
+- Contracts: VaultManager, Vaults (per-user), bUSDToken (ERC-20/Wrapped), sBTCToken (accounting token), OracleAdapter, AMM.  
+- Patterns: UUPS or Transparent proxy, Timelock controller, Multisig ownership for critical keys.
+
+---
+
+## 12. Open decisions (to be finalized by governance)
+- Custody model: wrapped BTC (WBTC/renBTC) vs native custody multisig.  
+- Default min_collateral_ratio (150% recommended initial).  
+- sBTC unit choice: 1 sBTC = 1 satoshi (recommended) or aggregated unit.  
+- On/off-chain redemption flow and KYC policy.
+
+---
+
+### End — Technical Specification
